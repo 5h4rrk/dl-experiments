@@ -1,5 +1,7 @@
 import zipfile
 import os 
+import numpy as np 
+
 
 class Helper:
     '''
@@ -14,6 +16,7 @@ class Helper:
         this.link = link
         this.download_extract()
         this.view_data()
+        this.extract_classnames()
         
     def download_extract(this):
         this.before = [i for i in os.listdir(".")]
@@ -32,3 +35,11 @@ class Helper:
         for path, dirs , filenames in os.walk(this.dir):
             print(f"{len(dirs)} -- {len(filenames)} at {path}")
 
+    def extract_classnames(this):
+        '''
+        Navigates through each directory and extract the class names
+        '''
+        temp = [ i for i in os.listdir(this.dir)]
+        path_ = this.dir + "/" temp[0]
+        this.class_names = np.array(sorted([ j for j in os.listdir(path_)]))
+    
