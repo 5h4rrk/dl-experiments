@@ -1,6 +1,8 @@
 import zipfile
 import os 
 import numpy as np 
+import random 
+import matplotlib.image as mpimg
 
 
 class Helper:
@@ -18,6 +20,7 @@ class Helper:
         this.view_data()
         this.extract_classnames()
         
+        
     def download_extract(this):
         this.before = [i for i in os.listdir(".")]
         os.system(f"!wget {this.link}")
@@ -29,6 +32,33 @@ class Helper:
         r = zipfile.ZipFile(f"{this.file}")
         r.extractall()
         r.close()
+    
+    def view_random_train_image(this):
+        _path = this.file + "/train/"
+        file_names = [_ for _ in os.listdir(_path)]
+        choices = [ rd.randint(0,len(file_names)) for _ in range(8)]
+        indx = 0
+        for __ in range(2):
+            for _ in range(len(choices) //2):
+                plt.subplot(__,4,_)
+                plt.title(_path  + file_names[choices[indx]])
+                img = mpimg.read(_path  + file_names[choices[indx]])
+                indx += 1
+                plt.plot(img)
+                
+    def view_random_test_image(this):
+        _path = this.file + "/test"
+        file_names = [ _ for _ in os.listdir(_path)]
+        choices = [ rd.randint(0, len(file_names)) for _ in range(8)] 
+        indx = 0
+        for __ in range(2):
+            for _ in range(len(choices) //2):
+                plt.subplot(__, 4, _)
+                plt.title(_path + file_names[choices[indx]])
+                img = mpimg.read(_path + file_names[choices[indx]])
+                indx += 1
+                plt.plot(img)
+
 
 
     def view_data(this):
