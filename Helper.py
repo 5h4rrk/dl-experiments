@@ -44,7 +44,7 @@ class Helper:
             for _ in range(len(choices) //2):
                 plt.subplot(__,4,_)
                 plt.title(_path  + file_names[choices[indx]])
-                img = mpimg.read(_path  + file_names[choices[indx]])
+                img = mpimg.imread(_path  + file_names[choices[indx]])
                 indx += 1
                 plt.plot(img)
                 
