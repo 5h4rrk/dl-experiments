@@ -3,6 +3,7 @@ import os
 import numpy as np 
 import random 
 import matplotlib.image as mpimg
+import matplotlib.pyplot as plt 
 
 
 class Helper:
@@ -38,6 +39,7 @@ class Helper:
         file_names = [_ for _ in os.listdir(_path)]
         choices = [ rd.randint(0,len(file_names)) for _ in range(8)]
         indx = 0
+        plt.figure(figsize=(6,14))
         for __ in range(2):
             for _ in range(len(choices) //2):
                 plt.subplot(__,4,_)
@@ -51,6 +53,7 @@ class Helper:
         file_names = [ _ for _ in os.listdir(_path)]
         choices = [ rd.randint(0, len(file_names)) for _ in range(8)] 
         indx = 0
+        plt.figure(figsize=(6,14))
         for __ in range(2):
             for _ in range(len(choices) //2):
                 plt.subplot(__, 4, _)
@@ -59,7 +62,8 @@ class Helper:
                 indx += 1
                 plt.plot(img)
 
-
+    def get_classnames(this):
+        return np.array(this.class_names)
 
     def view_data(this):
         for path, dirs , filenames in os.walk(this.dir):
