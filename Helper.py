@@ -1,7 +1,7 @@
 import zipfile
-import os 
+import os , time
 import numpy as np 
-import random 
+import random as rd
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt 
 
@@ -16,6 +16,7 @@ class Helper:
         preprocess the data (download & extraction)
     '''
     def __init__(this, link):
+        this.file = None
         this.link = link
         this.download_extract()
         this.view_data()
@@ -24,7 +25,7 @@ class Helper:
         
     def download_extract(this):
         this.before = [i for i in os.listdir(".")]
-        os.system(f"!wget {this.link}")
+        print(os.popen(f"wget {this.link}").readlines())
         this.after = [i for i in os.listdir(".")]
         for i in this.after:
             if i not in this.before:
@@ -35,32 +36,34 @@ class Helper:
         r.close()
     
     def view_random_train_image(this):
-        _path = this.file + "/train/"
-        file_names = [_ for _ in os.listdir(_path)]
-        choices = [ rd.randint(0,len(file_names)) for _ in range(8)]
+        _path = this.dir + "/train/"
+        file_names = [ _ for _ in os.listdir(_path)]
+        choices = [ rd.randint(0, len(file_names) - 1 ) for _ in range((4))] 
         indx = 0
-        plt.figure(figsize=(6,14))
-        for __ in range(2):
-            for _ in range(len(choices) //2):
-                plt.subplot(__,4,_)
-                plt.title(_path  + file_names[choices[indx]])
-                img = mpimg.imread(_path  + file_names[choices[indx]])
-                indx += 1
-                plt.plot(img)
+        plt.figure(figsize=(12,6))
+        for _ in range(4):
+              plt.subplot(1 , 4, _ + 1)
+              indx = choices[_]
+              file_names_ = [i for i in os.listdir(_path +f"{file_names[ indx ]}/")]
+              choices_ = rd.randint(0, len(file_names_) - 1 )
+              plt.title(f"{file_names[indx]}/" + file_names_[indx], fontsize=10)
+              img = mpimg.imread(_path + f"{file_names[indx]}/" + file_names_[indx])
+              plt.imshow(img/255.)
                 
     def view_random_test_image(this):
-        _path = this.file + "/test"
+        _path = this.dir + "/test/"
         file_names = [ _ for _ in os.listdir(_path)]
-        choices = [ rd.randint(0, len(file_names)) for _ in range(8)] 
+        choices = [ rd.randint(0, len(file_names) - 1 ) for _ in range((4))] 
         indx = 0
-        plt.figure(figsize=(6,14))
-        for __ in range(2):
-            for _ in range(len(choices) //2):
-                plt.subplot(__, 4, _)
-                plt.title(_path + file_names[choices[indx]])
-                img = mpimg.read(_path + file_names[choices[indx]])
-                indx += 1
-                plt.plot(img)
+        plt.figure(figsize=(12,6))
+        for _ in range(4):
+              plt.subplot(1 , 4, _ + 1)
+              indx = choices[_]
+              file_names_ = [i for i in os.listdir(_path +f"{file_names[ indx ]}/")]
+              choices_ = rd.randint(0, len(file_names_) - 1 )
+              plt.title(f"{file_names[indx]}/" + file_names_[indx], fontsize=10)
+              img = mpimg.imread(_path + f"{file_names[indx]}/" + file_names_[indx])
+              plt.imshow(img/255.)
 
     def get_classnames(this):
         return np.array(this.class_names)
@@ -74,6 +77,7 @@ class Helper:
         Navigates through each directory and extract the class names
         '''
         temp = [ i for i in os.listdir(this.dir)]
-        path_ = this.dir + "/" temp[0]
+        path_ = this.dir + "/" + temp[0]
         this.class_names = np.array(sorted([ j for j in os.listdir(path_)]))
-    
+
+  
