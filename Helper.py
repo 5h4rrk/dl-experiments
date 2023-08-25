@@ -47,7 +47,7 @@ class Helper:
               file_names_ = [i for i in os.listdir(_path +f"{file_names[ indx ]}/")]
               choices_ = rd.randint(0, len(file_names_) - 1 )
               plt.title(f"{file_names[indx]}/" + file_names_[indx], fontsize=10)
-              img = mpimg.imread(_path + f"{file_names[indx]}/" + file_names_[indx])
+              img = mpimg.imread(_path + f"{file_names[indx]}/" + file_names_[choices_])
               plt.imshow(img/255.)
                 
     def view_random_test_image(this):
@@ -62,7 +62,7 @@ class Helper:
               file_names_ = [i for i in os.listdir(_path +f"{file_names[ indx ]}/")]
               choices_ = rd.randint(0, len(file_names_) - 1 )
               plt.title(f"{file_names[indx]}/" + file_names_[indx], fontsize=10)
-              img = mpimg.imread(_path + f"{file_names[indx]}/" + file_names_[indx])
+              img = mpimg.imread(_path + f"{file_names[indx]}/" + file_names_[choices_])
               plt.imshow(img/255.)
 
     def get_classnames(this):
