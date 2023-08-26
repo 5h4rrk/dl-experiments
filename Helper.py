@@ -79,9 +79,3 @@ class Helper:
         temp = [ i for i in os.listdir(this.dir)]
         path_ = this.dir + "/" + temp[0]
         this.class_names = np.array(sorted([ j for j in os.listdir(path_)]))
-
-<<<<<<< HEAD
-  
-=======
-  
->>>>>>> d57e62facd67555f4cf5e345fd42b38c4fb75f0b
